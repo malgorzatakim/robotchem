@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'a.ui'
+# Form implementation generated from reading ui file 'gui.ui'
 #
-# Created by: PyQt4 UI code generator 4.12.2.dev1709221830
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -41,9 +41,9 @@ class Ui_MainWindow(object):
         self.graphicsView = QtGui.QGraphicsView(self.widget)
         self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
         self.horizontalLayout_2.addWidget(self.graphicsView)
-        self.graphicsView_2 = QtGui.QGraphicsView(self.widget)
-        self.graphicsView_2.setObjectName(_fromUtf8("graphicsView_2"))
-        self.horizontalLayout_2.addWidget(self.graphicsView_2)
+        self.txtResult = QtGui.QLineEdit(self.widget)
+        self.txtResult.setObjectName(_fromUtf8("txtResult"))
+        self.horizontalLayout_2.addWidget(self.txtResult)
         self.verticalLayout.addWidget(self.widget)
         self.frame = QtGui.QFrame(self.centralWidget)
         self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
@@ -67,6 +67,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addWidget(self.pushButton_2, 0, 1, 1, 1)
         self.verticalLayout.addWidget(self.frame)
         self.gridLayout = QtGui.QGridLayout()
+        self.gridLayout.setMargin(11)
         self.gridLayout.setSpacing(6)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.label_2 = QtGui.QLabel(self.centralWidget)
