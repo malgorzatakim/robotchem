@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'a.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created by: PyQt4 UI code generator 4.12.2.dev1709221830
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -67,7 +67,6 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addWidget(self.pushButton_2, 0, 1, 1, 1)
         self.verticalLayout.addWidget(self.frame)
         self.gridLayout = QtGui.QGridLayout()
-        self.gridLayout.setMargin(11)
         self.gridLayout.setSpacing(6)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.label_2 = QtGui.QLabel(self.centralWidget)
@@ -111,7 +110,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.pushButton.setText(_translate("MainWindow", "Take Picture", None))
         self.pushButton_3.setText(_translate("MainWindow", "Move Down", None))
-        self.btn.setText(_translate("MainWindow", "Hello", None))
+        self.btn.setText(_translate("MainWindow", "Autofocus", None))
         self.pushButton_2.setText(_translate("MainWindow", "Move Up", None))
         self.label_2.setText(_translate("MainWindow", "Set Interval", None))
         self.label_3.setText(_translate("MainWindow", "Set Time", None))
