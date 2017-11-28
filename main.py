@@ -15,6 +15,9 @@ class Main(QtGui.QMainWindow):
 		self.ui.btnStop.clicked.connect(self.Stop_clicked)
 	def TakePic_clicked(self):	
 		self.ui.txtResult.setText("MoveUp")	
+		pixmap = QtGui.QPixmap("/Users/maglorzatanguyen/Desktop/helga.png")
+		self.ui.labPic.setScaledContents(True)
+		self.ui.labPic.setPixmap(pixmap)
 	def Autofocus_clicked(self):
 		self.ui.txtResult.setText("Autofocus")
 	def MoveUp_clicked(self):
