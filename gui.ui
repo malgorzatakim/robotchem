@@ -30,18 +30,64 @@
     <item>
      <widget class="QWidget" name="widget_6" native="true">
       <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="3">
+        <widget class="QWidget" name="widget_9" native="true">
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="labInterval">
+            <property name="text">
+             <string>Set Interval</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="spinInterval"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="labTime">
+            <property name="text">
+             <string>Set Time</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="spinTime"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QWidget" name="widget_7" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QPushButton" name="btnTakePic">
+            <property name="text">
+             <string>Take Picture</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnAutofocus">
+            <property name="text">
+             <string>Autofocus</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item row="0" column="1">
         <widget class="QWidget" name="widget_8" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="btnMoveUp">
             <property name="text">
              <string>Move Up</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="btnMoveDown">
             <property name="text">
              <string>Move Down</string>
             </property>
@@ -51,45 +97,19 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QWidget" name="widget_9" native="true">
-         <layout class="QFormLayout" name="formLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Set Interval</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox"/>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Set Time</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="spinBox_2"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QWidget" name="widget_7" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+        <widget class="QWidget" name="widget_2" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="btnStart">
             <property name="text">
-             <string>Take Picture</string>
+             <string>Start</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btn">
+           <widget class="QPushButton" name="btnStop">
             <property name="text">
-             <string>Autofocus</string>
+             <string>Stop</string>
             </property>
            </widget>
           </item>
