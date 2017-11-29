@@ -7,5 +7,5 @@ class CameraOperator:
         self.camera = picamera.PiCamera()
         
     def takePic(self):
-    	self.camera.capture()
-        return QtGui.QPixmap(self.imageBasePath + "kolpak.jpg")
+    	self.camera.capture("test1.jpg")
+        return QtGui.QPixmap(self.imageBasePath + "test1.jpg")

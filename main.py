@@ -20,7 +20,7 @@ class Main(QtGui.QMainWindow):
         self.ui.btnStop.clicked.connect(self.stopClicked)
  
 
-        self.cameraOperator = CameraOperator("/Users/maglorzatanguyen/Desktop/")
+        self.cameraOperator = CameraOperator("/home/pi/robotchem/robotchem/")
         self.autofocus = Autofocus()
         self.platform = Platform()
         self.scheduler = Scheduler(self.autofocus)
