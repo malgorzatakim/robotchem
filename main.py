@@ -18,11 +18,12 @@ class Main(QtGui.QMainWindow):
         self.ui.btnMoveDown.clicked.connect(self.moveDownClicked)
         self.ui.btnStart.clicked.connect(self.startClicked)
         self.ui.btnStop.clicked.connect(self.stopClicked)
+ 
 
         self.cameraOperator = CameraOperator("/Users/maglorzatanguyen/Desktop/")
         self.autofocus = Autofocus()
         self.platform = Platform()
-        self.scheduler = Scheduler()
+        self.scheduler = Scheduler(self.autofocus)
 
     def takePicClicked(self):    
         self.ui.txtResult.setText("TakePic")
@@ -40,6 +41,7 @@ class Main(QtGui.QMainWindow):
     
     def startClicked(self):
         self.ui.txtResult.setText("Start")
+        self.scheduler.startSerial(self.ui.spinTime.value(), self.ui.spinInterval.value())
     
     def stopClicked(self):
         self.ui.txtResult.setText("Stop")

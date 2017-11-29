@@ -1,10 +1,10 @@
 class Scheduler:
 
-    def setTime(self):
+    def __init__(self, autofocus):
+        self.autofocus = autofocus
+
+    def startSerial(self, time, interval):
         pass
 
-    def setInterval(self):
-        pass
-
-    def startSerial(self):
-        pass
+    def stopSerial(self):
+    	pass
