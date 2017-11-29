@@ -1,5 +1,5 @@
 import sys
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 from gui import Ui_MainWindow
 from cameraoperator import CameraOperator
 from autofocus import Autofocus
