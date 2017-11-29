@@ -28,6 +28,7 @@ class Main(QtGui.QMainWindow):
     def takePicClicked(self):    
         self.ui.txtResult.setText("TakePic")
         pixmap = self.cameraOperator.takePic()
+        self.ui.labPic.setScaledContents(True)
         self.ui.labPic.setPixmap(pixmap)
 
     def autofocusClicked(self):
