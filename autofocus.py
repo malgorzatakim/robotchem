@@ -14,4 +14,3 @@ class Autofocus:
 
     def __calcIntensity__(self):
         pass
-

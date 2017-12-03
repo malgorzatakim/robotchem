@@ -1,11 +1,12 @@
 from PyQt4 import QtGui
-import picamera
+from PIL import Image
+#import picamera
 
 class CameraOperator:
     def __init__(self, basePath):
         self.imageBasePath = basePath 
-        self.camera = picamera.PiCamera()
+        #self.camera = picamera.PiCamera()
         
     def takePic(self):
-    	self.camera.capture("test1.jpg")
-        return QtGui.QPixmap(self.imageBasePath + "test1.jpg")
+        #self.camera.capture("kolpak.jpg")
+        return Image.open(self.imageBasePath + "kolpak.jpg")

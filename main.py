@@ -1,5 +1,6 @@
 import sys
 from PyQt4 import QtGui, QtCore
+from PIL.ImageQt import ImageQt
 from gui import Ui_MainWindow
 from cameraoperator import CameraOperator
 from autofocus import Autofocus
@@ -20,16 +21,18 @@ class Main(QtGui.QMainWindow):
         self.ui.btnStop.clicked.connect(self.stopClicked)
  
 
-        self.cameraOperator = CameraOperator("/home/pi/robotchem/robotchem/")
-        self.autofocus = Autofocus()
+        self.cameraOperator = CameraOperator("/Users/maglorzatanguyen/Desktop/")
         self.platform = Platform()
+        self.autofocus = Autofocus()#self.cameraOperator, self.platform)
         self.scheduler = Scheduler(self.autofocus)
 
     def takePicClicked(self):    
         self.ui.txtResult.setText("TakePic")
-        pixmap = self.cameraOperator.takePic()
-        self.ui.labPic.setScaledContents(True)
-        self.ui.labPic.setPixmap(pixmap)
+        image = self.cameraOperator.takePic()
+        pixmap = QtGui.QPixmap.fromImage(ImageQt(image))
+        #self.ui.labPic.setScaledContents(True)
+        #self.ui.labPic.setPixmap(pixmap)
+        self.ui.labPic.setPixmap(pixmap.scaled(self.ui.labPic.size(), QtCore.Qt.KeepAspectRatio))
 
     def autofocusClicked(self):
         self.ui.txtResult.setText("Autofocus")
@@ -41,7 +44,7 @@ class Main(QtGui.QMainWindow):
         self.ui.txtResult.setText("MoveDown")    
     
     def startClicked(self):
-        self.ui.txtResult.setText("Start")
+        self.ui.txtResult.setText(str(self.ui.spinTime.value()))
         self.scheduler.startSerial(self.ui.spinTime.value(), self.ui.spinInterval.value())
     
     def stopClicked(self):
