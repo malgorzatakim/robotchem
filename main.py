@@ -29,6 +29,9 @@ class Main(QtGui.QMainWindow):
     def takePicClicked(self):    
         self.ui.txtResult.setText("TakePic")
         image = self.cameraOperator.takePic()
+        self.displayPic(image)
+
+    def displayPic(self, image):
         pixmap = QtGui.QPixmap.fromImage(ImageQt(image))
         #self.ui.labPic.setScaledContents(True)
         #self.ui.labPic.setPixmap(pixmap)
