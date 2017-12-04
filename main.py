@@ -23,11 +23,12 @@ class Main(QtGui.QMainWindow):
 
         self.cameraOperator = CameraOperator("./images/")
         self.platform = Platform()
-        self.autofocus = Autofocus()#self.cameraOperator, self.platform)
+        self.autofocus = Autofocus(self.cameraOperator, self.platform, self)
         self.scheduler = Scheduler(self.autofocus)
 
     def takePicClicked(self):    
         self.ui.txtResult.setText("TakePic")
+        #path = self.cameraOperator.newSubfolder()
         image = self.cameraOperator.takePic()
         self.displayPic(image)
 
@@ -39,6 +40,7 @@ class Main(QtGui.QMainWindow):
 
     def autofocusClicked(self):
         self.ui.txtResult.setText("Autofocus")
+        self.autofocus.runAutofocus()
     
     def moveUpClicked(self):
         self.ui.txtResult.setText("MoveUp")    
