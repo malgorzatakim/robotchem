@@ -48,6 +48,9 @@
      </widget>
     </item>
     <item>
+     <widget class="QLineEdit" name="folderName"/>
+    </item>
+    <item>
      <widget class="QWidget" name="widget_6" native="true">
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="3">

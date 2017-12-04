@@ -14,6 +14,6 @@ class CameraOperator:
         #return Image.open(str(path) + "kolpak.jpg")
         return Image.open(self.imageBasePath + "kolpak.jpg")
 
-    def newSubfolder(self):
-    	name = time.time()
-    	return os.mkdir(self.imageBasePath + str(name))
+    def newSubfolder(self): #, name):
+        name = time.time()
+        return os.mkdir(self.imageBasePath + str(name))

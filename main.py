@@ -28,7 +28,7 @@ class Main(QtGui.QMainWindow):
 
     def takePicClicked(self):    
         self.ui.txtResult.setText("TakePic")
-        #path = self.cameraOperator.newSubfolder()
+        #path = self.cameraOperator.newSubfolder(self.ui.folderName.value())
         image = self.cameraOperator.takePic()
         self.displayPic(image)
 
