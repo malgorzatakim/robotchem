@@ -2,6 +2,7 @@ from PyQt4 import QtGui
 from PIL import Image
 import time
 import os
+from shutil import copy2
 #import picamera
 
 class CameraOperator:
@@ -9,11 +10,14 @@ class CameraOperator:
         self.imageBasePath = basePath
         #self.camera = picamera.PiCamera()
         
-    def takePic(self): #, path):
-        #self.camera.capture("kolpak.jpg")
-        #return Image.open(str(path) + "kolpak.jpg")
-        return Image.open(self.imageBasePath + "kolpak.jpg")
+    def takePic(self, path):
+        #self.camera.capture(path + "kolpak.jpg")
+        filename = "kolpak.jpg"
+        copy2(self.imageBasePath + filename, path + filename)
+        return Image.open(path + filename)
 
-    def newSubfolder(self): #, name):
+    def newSubfolder(self):
         name = time.time()
-        return os.mkdir(self.imageBasePath + str(name))
+        directory = self.imageBasePath + str(name) + "/"
+        os.mkdir(directory)
+        return directory

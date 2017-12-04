@@ -12,7 +12,8 @@ class Autofocus:
 
 
     def runAutofocus(self):
-        image = self.cameraOperator.takePic()
+        path = self.cameraOperator.newSubfolder()
+        image = self.cameraOperator.takePic(path)
         self.main.displayPic(image)
         focusnumber = self.__calcFocusing__(image)
 

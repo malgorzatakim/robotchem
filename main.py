@@ -28,8 +28,8 @@ class Main(QtGui.QMainWindow):
 
     def takePicClicked(self):    
         self.ui.txtResult.setText("TakePic")
-        #path = self.cameraOperator.newSubfolder(self.ui.folderName.value())
-        image = self.cameraOperator.takePic()
+        path = self.cameraOperator.newSubfolder()
+        image = self.cameraOperator.takePic(path)
         self.displayPic(image)
 
     def displayPic(self, image):
