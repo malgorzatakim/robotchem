@@ -8,16 +8,16 @@ from shutil import copy2
 class CameraOperator:
     def __init__(self, basePath):
         self.imageBasePath = basePath
+        self.currentSubfolder = self.imageBasePath
         #self.camera = picamera.PiCamera()
         
-    def takePic(self, path):
+    def takePic(self):
         #self.camera.capture(path + "kolpak.jpg")
         filename = "kolpak.jpg"
-        copy2(self.imageBasePath + filename, path + filename)
-        return Image.open(path + filename)
+        copy2(self.imageBasePath + filename, self.currentSubfolder + filename)
+        return Image.open(self.currentSubfolder + filename)
 
     def newSubfolder(self):
         name = time.time()
-        directory = self.imageBasePath + str(name) + "/"
-        os.mkdir(directory)
-        return directory
+        self.currentSubfolder = self.imageBasePath + str(name) + "/"
+        os.mkdir(self.currentSubfolder)
