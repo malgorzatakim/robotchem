@@ -21,7 +21,7 @@ class Main(QtGui.QMainWindow):
         self.ui.btnStop.clicked.connect(self.stopClicked)
  
 
-        self.cameraOperator = CameraOperator("/Users/maglorzatanguyen/Desktop/")
+        self.cameraOperator = CameraOperator("./images/")
         self.platform = Platform()
         self.autofocus = Autofocus()#self.cameraOperator, self.platform)
         self.scheduler = Scheduler(self.autofocus)
