@@ -12,7 +12,7 @@ class CameraOperator:
         #self.camera = picamera.PiCamera()
         
     def takePic(self):
-        filename = "kolpak.jpg"
+        filename = "kolpak.png"
         #self.camera.capture(self.currentSubfolder + filename)
         copy2(self.imageBasePath + filename, self.currentSubfolder + filename)
         return Image.open(self.currentSubfolder + filename)
