@@ -10,7 +10,6 @@ class Autofocus:
         self.platform = Platform
         self.main = Main
 
-
     def runAutofocus(self):
         self.cameraOperator.newSubfolder()
         image = self.cameraOperator.takePic()
@@ -23,10 +22,11 @@ class Autofocus:
     def __calcFocusing__(self, image):
         im = image.convert("L") #opens pic and converts to grayscale
         width, height = im.size #gets image dimensions
-        pixels = list(im.getdata()) #creates a list of all the pixel intensities
+        pixels = np.array(list(im.getdata())) #creates a list of all the pixel intensities
         mean = np.mean(pixels) #calculates mean intensity of the picture
         if mean != 0: #so that we dont divide by 0
-            focusing = 1 / (height * width * mean) * sum([(x - mean) ** 2 for x in pixels])
+            focusing = 1 / (height * width * mean) * (np.dot(pixels, pixels) 
+                -  2 * mean * np.sum(pixels) + mean * mean * pixels.size)
         print focusing
         return focusing
 
