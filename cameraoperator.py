@@ -13,6 +13,7 @@ class CameraOperator:
         
     def takePic(self):
         filename = "kolpak.png"
+        #filename = str(time.time())
         #self.camera.capture(self.currentSubfolder + filename)
         copy2(self.imageBasePath + filename, self.currentSubfolder + filename)
         return Image.open(self.currentSubfolder + filename)

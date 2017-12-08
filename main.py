@@ -44,11 +44,11 @@ class Main(QtGui.QMainWindow):
     
     def moveUpClicked(self):
         self.ui.txtResult.setText("MoveUp")    
-        self.platform.MoveUp()
+        self.platform.MoveUp(1)
     
     def moveDownClicked(self):
         self.ui.txtResult.setText("MoveDown")  
-        self.platform.MoveDown()  
+        self.platform.MoveDown(1)  
     
     def startClicked(self):
         self.ui.txtResult.setText(str(self.ui.spinTime.value()))
