@@ -16,9 +16,12 @@ class CameraOperator:
         #filename = str(time.time())
         #self.camera.capture(self.currentSubfolder + filename)
         copy2(self.imageBasePath + filename, self.currentSubfolder + filename)
-        return Image.open(self.currentSubfolder + filename)
+        return Image.open(self.currentSubfolder + filename), filename
 
     def newSubfolder(self):
         name = time.time()
         self.currentSubfolder = self.imageBasePath + str(name) + "/"
         os.mkdir(self.currentSubfolder)
+
+    def getCurrentSubfolder(self):
+        return self.currentSubfolder
