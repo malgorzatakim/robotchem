@@ -11,30 +11,33 @@ class Autofocus:
         self.platform = Platform
         self.main = Main
 
-        self.imagesInSweep = 13
         self.totalPositions = 1300
+        self.maxSteps = 100
+        self.imagesInSweep = self.totalPositions // self.maxSteps - 1
 
     def runAutofocus(self):
+        self.cameraOperator.newSubfolder()
         maxPosition, maxFocusing, data = self.autofocusSweep()
         finalData = self.fineTuning(maxPosition, maxFocusing, data)
 
-        summary = self.cameraOperator.getCurrentSubfolder()
+        summary = self.cameraOperator.getCurrentSubfolder() + "summary.txt"
         with open(summary, "w") as f:
-            for i in range(finalData):
-                f.write("{}, {}, {}\n".format(finalData[i][0], finalData[i][1], finalData[i][2]))
+            for entry in finalData:
+                f.write("{}, {}, {}\n".format(entry[0], entry[1], entry[2]))
 
     def stopAutofocus(self):
         pass
 
     def autofocusSweep(self):
-        self.platform.MoveDownAll()
+        self.platform.moveDownAll()
+        self.platform.moveUp(self.maxSteps)
 
-        position = 0 
+        position = self.maxSteps
         data = []
-        for _ in range(imagesInSweep):
+        for _ in range(self.imagesInSweep):
             self.__captureAndFocusing__(position, data)
-            position += maxSteps
-            self.platform.MoveUp(maxSteps) 
+            position += self.maxSteps
+            self.platform.moveUp(self.maxSteps) 
 
         maxFocusing = -1
         maxPosition = -1
@@ -43,16 +46,17 @@ class Autofocus:
                 maxFocusing = data[i][1]
                 maxPosition = data[i][0]
 
-        self.platform.MoveDown(position - maxPosition) #move to the position of highest focusNumber
+        self.platform.moveDown(position - maxPosition) #move to the position of highest focusNumber
 
         return maxPosition, maxFocusing, data
 
     def fineTuning(self, maxPosition, maxFocusing, data):
-        steps = self.totalPositions // self.imagesInSweep
+        steps = self.maxSteps // 2
         focusStart = maxFocusing
+        position = maxPosition
 
         while steps >= 1:
-            self.platform.MoveUp(steps)
+            self.platform.moveUp(steps)
             position += steps
             focusNew = self.__captureAndFocusing__(position, data)
 
@@ -68,14 +72,15 @@ class Autofocus:
                 else:
                     self.platform.moveUp(steps)
                     position += steps
-            steps // 2
+            steps //= 2
 
         return data
 
     def __captureAndFocusing__(self, position, data):
         image, filename = self.cameraOperator.takePic()
         self.main.displayPic(image)
-        focus = self.__calcFocusing__(image)
+        focus = - (position - 600) ** 2 + 500000
+        #focus = self.__calcFocusing__(image)
         data.append((position, focus, filename))
         return focus
 

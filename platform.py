@@ -1,16 +1,22 @@
 import serial
 
 class Platform:
-	def __init__(self):
-		self.serial = serial.Serial('/dev/ttyACM0', 9600)
-    
+    def __init__(self):
+        #self.serial = serial.Serial('/dev/ttyACM0', 9600)
+        pass
+
     def moveUp(self, steps):
-        for _ in steps:
-            self.serial.write(1)
+        print "Moving up by: {} steps".format(steps)
+        for _ in range(steps):
+            pass
+            #self.serial.write(1)
+            #add read inside the loop
 
     def moveDown(self, steps):
-        for _ in steps:
-            self.serial.write(2)
+        print "Moving down by: {} steps".format(steps)
+        for _ in range(steps):
+            pass
+            #self.serial.write(2)
 
     def moveDownAll(self):
-    	pass
+        pass
