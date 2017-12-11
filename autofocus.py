@@ -3,12 +3,15 @@ import numpy as np
 from cameraoperator import CameraOperator
 from platform import Platform
 import time
+import matplotlib.pyplot as plt
+from plot import PlotFocusing
 
 class Autofocus:
 
-    def __init__(self, CameraOperator, Platform, Main):
+    def __init__(self, CameraOperator, Platform, PlotFocusing, Main):
         self.cameraOperator = CameraOperator
         self.platform = Platform
+        self.plotFocusing = PlotFocusing
         self.main = Main
 
         self.totalPositions = 1300
@@ -22,7 +25,7 @@ class Autofocus:
         finalFocusing = -1
         finalPosition = -1
 
-        for i in range(len(finalData)): #find highest focusNumber and the corresponding position
+        for i in range(len(finalData)):
             if finalData[i][1] > finalFocusing:
                 finalPosition = data[i][0]
                 finalFocusing = data[i][1]
@@ -38,13 +41,13 @@ class Autofocus:
 
         image, _ = self.cameraOperator.takePic()
         self.main.displayPic(image)
+        self.plotFocusing.plotting(finalData)
 
         summary = self.cameraOperator.getCurrentSubfolder() + "summary.txt"
         with open(summary, "w") as f:
             f.write("The most focused picture is: {} at position {} with focus value of {}\n".format(finalFilename, finalPosition, finalFocusing))
             for entry in finalData:
                 f.write("{}, {}, {}\n".format(entry[0], entry[1], entry[2]))
-
 
     def stopAutofocus(self):
         pass

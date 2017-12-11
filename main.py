@@ -6,6 +6,7 @@ from cameraoperator import CameraOperator
 from autofocus import Autofocus
 from platform import Platform
 from scheduler import Scheduler
+from plot import PlotFocusing
 
 class Main(QtGui.QMainWindow):
     def __init__(self):
@@ -23,11 +24,11 @@ class Main(QtGui.QMainWindow):
 
         self.cameraOperator = CameraOperator("./images/")
         self.platform = Platform()
-        self.autofocus = Autofocus(self.cameraOperator, self.platform, self)
+        self.plotFocusing = PlotFocusing(self.cameraOperator, self)
+        self.autofocus = Autofocus(self.cameraOperator, self.platform, self.plotFocusing, self)
         self.scheduler = Scheduler(self.autofocus)
 
     def takePicClicked(self):    
-        self.ui.txtResult.setText("TakePic")
         self.cameraOperator.newSubfolder()
         image, _ = self.cameraOperator.takePic()
         self.displayPic(image)
@@ -39,23 +40,19 @@ class Main(QtGui.QMainWindow):
         self.ui.labPic.setPixmap(pixmap.scaled(self.ui.labPic.size(), QtCore.Qt.KeepAspectRatio))
 
     def autofocusClicked(self):
-        self.ui.txtResult.setText("Autofocus")
         self.autofocus.runAutofocus()
     
     def moveUpClicked(self):
-        self.ui.txtResult.setText("MoveUp")    
         self.platform.MoveUp(1)
     
     def moveDownClicked(self):
-        self.ui.txtResult.setText("MoveDown")  
         self.platform.MoveDown(1)  
     
     def startClicked(self):
-        self.ui.txtResult.setText(str(self.ui.spinTime.value()))
         self.scheduler.startSerial(self.ui.spinTime.value(), self.ui.spinInterval.value())
     
     def stopClicked(self):
-        self.ui.txtResult.setText("Stop")
+        self.ui.labPlot.setText("Stop")
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
