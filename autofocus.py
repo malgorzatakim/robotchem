@@ -19,11 +19,28 @@ class Autofocus:
         self.cameraOperator.newSubfolder()
         maxPosition, maxFocusing, data = self.autofocusSweep()
         finalData = self.fineTuning(maxPosition, maxFocusing, data)
+        finalFocusing = -1
+
+        for i in range(len(finalData)): #find highest focusNumber and the corresponding position
+            if finalData[i][1] > maxFocusing:
+                finalPosition = data[i][0]
+                finalFocusing = data[i][1]
+                finalFilename = data[i][2]
+
+        if finalPosition > position:
+            self.platform.moveUp(finalPosition - position)
+        else:
+            self.platform.moveDown(position - finalPosition)
+
+        image, _ = self.cameraOperator.takePic()
+        self.main.displayPic(image)
 
         summary = self.cameraOperator.getCurrentSubfolder() + "summary.txt"
         with open(summary, "w") as f:
+            f.write("The most focused picture is: {} at position {} with focus value of {}\n").format(finalFilename, finalPosition, finalFocusing)
             for entry in finalData:
                 f.write("{}, {}, {}\n".format(entry[0], entry[1], entry[2]))
+
 
     def stopAutofocus(self):
         pass
