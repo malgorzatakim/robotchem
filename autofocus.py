@@ -34,12 +34,7 @@ class Autofocus:
         print finalPosition
         print position
 
-        #if finalPosition > position:
-        #    self.platform.moveUp(finalPosition - position)
-        #else:
-        #    self.platform.moveDown(position - finalPosition)
-
-        image, _ = self.cameraOperator.takePic()
+        image = Image.open(self.cameraOperator.getCurrentSubfolder() + finalFilename)
         self.main.displayPic(image)
         self.plotFocusing.plotting(finalData)
 
