@@ -7,6 +7,24 @@ from autofocus import Autofocus
 from platform import Platform
 from scheduler import Scheduler
 from plot import PlotFocusing
+from PyQt4.QtCore import QThread, SIGNAL
+
+class BackgroundThread(QThread):
+
+    def __init__(self, cameraOperator, platform, plotFocusing):
+        QThread.__init__(self)
+        self.autofocus = Autofocus(cameraOperator, platform, plotFocusing, self)
+
+    def stop(self):
+        self.quit()
+        self.wait()
+
+    def __del__(self):
+        self.quit()
+        self.wait()
+
+    def run(self):
+        self.autofocus.runAutofocus()
 
 class Main(QtGui.QMainWindow):
     def __init__(self):
@@ -24,9 +42,8 @@ class Main(QtGui.QMainWindow):
 
         self.cameraOperator = CameraOperator("./images/")
         self.platform = Platform()
-        self.plotFocusing = PlotFocusing(self.cameraOperator, self)
-        self.autofocus = Autofocus(self.cameraOperator, self.platform, self.plotFocusing, self)
-        self.scheduler = Scheduler(self.autofocus)
+        self.plotFocusing = PlotFocusing(self.cameraOperator)
+        #self.scheduler = Scheduler(self.autofocus)
 
     def takePicClicked(self):    
         self.cameraOperator.newSubfolder()
@@ -40,7 +57,9 @@ class Main(QtGui.QMainWindow):
         self.ui.labPic.setPixmap(pixmap.scaled(self.ui.labPic.size(), QtCore.Qt.KeepAspectRatio))
 
     def autofocusClicked(self):
-        self.autofocus.runAutofocus()
+        self.backgroundThread = BackgroundThread(self.cameraOperator, self.platform, self.plotFocusing)
+        self.connect(self.backgroundThread, SIGNAL("displayPic"), self.displayPic)
+        self.backgroundThread.start() #start uses run (from backgroundThread class)
     
     def moveUpClicked(self):
         self.platform.MoveUp(1)

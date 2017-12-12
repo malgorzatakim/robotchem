@@ -4,16 +4,15 @@ from cameraoperator import CameraOperator
 
 
 class PlotFocusing:
-    def __init__(self, CameraOperator, Main):
+    def __init__(self, CameraOperator):
         self.cameraOperator = CameraOperator
-        self.main = Main
 
     def plotting(self, finalData):
 
         position = []
         focusing = []
         for entry in finalData:
-            position.append(entry[0] // 10)
+            position.append(entry[0] / 10.0)
             focusing.append(entry[1])
         plt.scatter(position, focusing, linewidth = 2.0)
         plt.xlabel("position (mm)")

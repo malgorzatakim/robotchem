@@ -19,4 +19,5 @@ class Platform:
             #self.serial.write(2)
 
     def moveDownAll(self):
+        #self.serial.write(4)
         pass

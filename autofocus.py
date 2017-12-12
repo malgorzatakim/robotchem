@@ -5,14 +5,15 @@ from platform import Platform
 import time
 import matplotlib.pyplot as plt
 from plot import PlotFocusing
+from PyQt4.QtCore import SIGNAL
 
 class Autofocus:
 
-    def __init__(self, CameraOperator, Platform, PlotFocusing, Main):
+    def __init__(self, CameraOperator, Platform, PlotFocusing, thread):
         self.cameraOperator = CameraOperator
         self.platform = Platform
         self.plotFocusing = PlotFocusing
-        self.main = Main
+        self.thread = thread
 
         self.totalPositions = 1300
         self.maxSteps = 100
@@ -35,7 +36,8 @@ class Autofocus:
         print position
 
         image = Image.open(self.cameraOperator.getCurrentSubfolder() + finalFilename)
-        self.main.displayPic(image)
+        #self.main.displayPic(image)
+        self.thread.emit(SIGNAL('displayPic'), image)
         self.plotFocusing.plotting(finalData)
 
         summary = self.cameraOperator.getCurrentSubfolder() + "summary.txt"
@@ -97,7 +99,9 @@ class Autofocus:
 
     def __captureAndFocusing__(self, position, data):
         image, filename = self.cameraOperator.takePic()
-        self.main.displayPic(image)
+        #self.main.displayPic(image)
+        self.thread.emit(SIGNAL('displayPic'), image)
+        time.sleep(0.3)
         focus = - (position - 625) ** 2 + 500000
         #focus = self.__calcFocusing__(image)
         data.append((position, focus, filename))
