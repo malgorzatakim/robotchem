@@ -8,6 +8,7 @@ class Platform:
     def moveUp(self, steps):
         print "Moving up by: {} steps".format(steps)
         for _ in range(steps):
+            pass
             #self.serial.write(1)
             #ser.read(ser.inWaiting())
             #add read inside the loop
