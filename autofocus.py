@@ -18,7 +18,7 @@ class Autofocus:
         self.plotFocusing = PlotFocusing
         self.thread = thread
 
-        self.totalPositions = 1300
+        self.totalPositions = 500
         self.maxSteps = 100
         self.imagesInSweep = self.totalPositions // self.maxSteps - 1
 
@@ -53,15 +53,14 @@ class Autofocus:
         pass
 
     def autofocusSweep(self):
-        self.platform.moveDownAll()
-        self.platform.moveUp(self.maxSteps)
+        #self.platform.moveDownAll()
 
         position = self.maxSteps
         data = []
         for _ in range(self.imagesInSweep):
+            self.platform.moveUp(self.maxSteps) #move first then capture
             self.__captureAndFocusing__(position, data)
             position += self.maxSteps
-            self.platform.moveUp(self.maxSteps) 
 
         maxFocusing = -1
         maxPosition = -1
@@ -105,8 +104,8 @@ class Autofocus:
         #self.main.displayPic(image)
         self.thread.emit(SIGNAL('displayPic'), image)
         time.sleep(1)
-        focus = - (position - 625) ** 2 + 500000
-        #focus = self.__calcFocusing__(image)
+        #focus = - (position - 625) ** 2 + 500000
+        focus = self.__calcFocusing__(image)
         data.append((position, focus, filename))
         return focus
 

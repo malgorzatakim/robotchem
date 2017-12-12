@@ -62,10 +62,10 @@ class Main(QtGui.QMainWindow):
         self.backgroundThread.start() #start uses run (from backgroundThread class)
     
     def moveUpClicked(self):
-        self.platform.MoveUp(1)
+        self.platform.moveUp(50)
     
     def moveDownClicked(self):
-        self.platform.MoveDown(1)  
+        self.platform.moveDown(50)  
     
     def startClicked(self):
         self.scheduler.startSerial(self.ui.spinTime.value(), self.ui.spinInterval.value())
