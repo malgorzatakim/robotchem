@@ -6,6 +6,9 @@ import time
 import matplotlib.pyplot as plt
 from plot import PlotFocusing
 from PyQt4.QtCore import SIGNAL
+from PIL import ImageFile
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class Autofocus:
 
@@ -101,7 +104,7 @@ class Autofocus:
         image, filename = self.cameraOperator.takePic()
         #self.main.displayPic(image)
         self.thread.emit(SIGNAL('displayPic'), image)
-        time.sleep(0.3)
+        time.sleep(1)
         focus = - (position - 625) ** 2 + 500000
         #focus = self.__calcFocusing__(image)
         data.append((position, focus, filename))

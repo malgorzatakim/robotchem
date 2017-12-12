@@ -100,6 +100,8 @@ class Ui_MainWindow(object):
         self.btnStop.setObjectName(_fromUtf8("btnStop"))
         self.verticalLayout_4.addWidget(self.btnStop)
         self.verticalLayout_6.addWidget(self.widget_2)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem1)
         self.horizontalLayout.addWidget(self.widget_6)
         self.widget = QtGui.QWidget(self.centralWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.MinimumExpanding)

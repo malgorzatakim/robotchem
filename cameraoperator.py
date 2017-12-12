@@ -4,6 +4,9 @@ import time
 import os
 from shutil import copy2
 #import picamera
+from PIL import ImageFile
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class CameraOperator:
     def __init__(self, basePath):
