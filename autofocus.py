@@ -30,10 +30,9 @@ class Autofocus:
         finalPosition = -1
 
         for i in range(len(finalData)):
-            if finalData[i][1] > finalFocusing:
-                finalPosition = data[i][0]
-                finalFocusing = data[i][1]
-                finalFilename = data[i][2]
+            if i == position:
+                finalFocusing = finalData[i][1]
+                finalFilename = finalData[i][2]
         
         print finalPosition
         print position
@@ -45,7 +44,7 @@ class Autofocus:
 
         summary = self.cameraOperator.getCurrentSubfolder() + "summary.txt"
         with open(summary, "w") as f:
-            f.write("The most focused picture is: {} at position {} with focus value of {}\n".format(finalFilename, finalPosition, finalFocusing))
+            f.write("The most focused picture is: {} at position {} with focus value of {}\n".format(finalFilename, position, finalFocusing))
             for entry in finalData:
                 f.write("{}, {}, {}\n".format(entry[0], entry[1], entry[2]))
 

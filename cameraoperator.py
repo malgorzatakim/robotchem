@@ -16,7 +16,7 @@ class CameraOperator:
         
     def takePic(self):
         filename = "kolpak.png"
-        #filename = str(time.time())
+        #filename = str(int(time.time() * 100)) + ".png"
         self.camera.capture(self.currentSubfolder + filename)
         #copy2(self.imageBasePath + filename, self.currentSubfolder + filename)
         return Image.open(self.currentSubfolder + filename), filename

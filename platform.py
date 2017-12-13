@@ -12,8 +12,8 @@ class Platform:
             msg = "0"
             #pass
             self.serial.write("1")
-            while msg != "1":
-                msg = self.serial.read(self.serial.inWaiting())
+            while msg != "1\n":
+                msg = self.serial.readline()
                 print msg
             #sleep(0.05)
             #self.serial.read(self.serial.inWaiting())
@@ -25,19 +25,15 @@ class Platform:
             msg = "0"
             #pass
             self.serial.write("2")
-            while msg != "1":
-                msg = self.serial.read(self.serial.inWaiting())
+            while msg != "1\n":
+                msg = self.serial.readline()
             #sleep(0.05)
             #self.serial.read(self.serial.inWaiting())
 
     def moveDownAll(self):
+        msg = "0"
         self.serial.write("4")
+        while msg != "1\n":
+            msg = self.serial.readline()
         #self.serial.read(self.serial.inWaiting())
         #pass
-
-#count = 0
-#while count < 1:
-#    ser.write("4")
-#    sleep(1)
-#    msg = ser.read(ser.inWaiting())
-#    count += 1
