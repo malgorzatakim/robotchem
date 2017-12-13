@@ -20,7 +20,7 @@ class Autofocus:
 
         self.totalPositions = 100
         self.maxSteps = 10
-        self.imagesInSweep = self.totalPositions // self.maxSteps - 2
+        self.imagesInSweep = self.totalPositions // self.maxSteps - 1
 
     def runAutofocus(self):
         self.cameraOperator.newSubfolder()
@@ -75,9 +75,9 @@ class Autofocus:
         position = maxPosition
 
         while steps >= 1:
-            focusNew = self.__captureAndFocusing__(position, data)
             self.platform.moveUp(steps)
             position += steps
+            focusNew = self.__captureAndFocusing__(position, data)
 
             if focusNew > focusStart:
                 focusStart = focusNew
