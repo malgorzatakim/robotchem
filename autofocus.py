@@ -44,7 +44,7 @@ class Autofocus:
 
         summary = self.cameraOperator.getCurrentSubfolder() + "summary.txt"
         with open(summary, "w") as f:
-            f.write("The most focused picture is: {} at position {} with focus value of {}\n".format(finalFilename, position, finalFocusing))
+            f.write("The most focused picture is: {} at position {} with focus value of {}\n".format(finalFilename, psition, finalFocusing))
             for entry in finalData:
                 f.write("{}, {}, {}\n".format(entry[0], entry[1], entry[2]))
 
@@ -102,7 +102,6 @@ class Autofocus:
         image, filename = self.cameraOperator.takePic()
         #self.main.displayPic(image)
         self.thread.emit(SIGNAL('displayPic'), image)
-        time.sleep(1)
         #focus = - (position - 625) ** 2 + 500000
         focus = self.__calcFocusing__(image)
         data.append((position, focus, filename))
