@@ -9,31 +9,32 @@ class Platform:
     def moveUp(self, steps):
         print "Moving up by: {} steps".format(steps)
         for _ in range(steps):
-            msg = "0"
+            #msg = "0"
             #pass
             self.serial.write("1")
-            while msg != "1\n":
-                msg = self.serial.readline()
-                print msg
-            #sleep(0.05)
+            #while msg != "1\n":
+             #   msg = self.serial.readline()
+              #  print msg
+            sleep(0.05)
             #self.serial.read(self.serial.inWaiting())
             #add read inside the loops
 
     def moveDown(self, steps):
         print "Moving down by: {} steps".format(steps)
         for _ in range(steps):
-            msg = "0"
+            #msg = "0"
             #pass
             self.serial.write("2")
-            while msg != "1\n":
-                msg = self.serial.readline()
-            #sleep(0.05)
+            #while msg != "1\n":
+            #    msg = self.serial.readline()
+            sleep(0.05)
             #self.serial.read(self.serial.inWaiting())
 
     def moveDownAll(self):
         msg = "0"
         self.serial.write("4")
-        while msg != "1\n":
-            msg = self.serial.readline()
+        #while msg != "1\n":
+        #    msg = self.serial.readline()
         #self.serial.read(self.serial.inWaiting())
+        sleep(60)
         #pass
