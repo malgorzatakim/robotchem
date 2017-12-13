@@ -18,23 +18,20 @@ class Autofocus:
         self.plotFocusing = PlotFocusing
         self.thread = thread
 
-        self.totalPositions = 500
-        self.maxSteps = 100
-        self.imagesInSweep = self.totalPositions // self.maxSteps - 1
+        self.totalPositions = 100
+        self.maxSteps = 10
+        self.imagesInSweep = self.totalPositions // self.maxSteps - 2
 
     def runAutofocus(self):
         self.cameraOperator.newSubfolder()
         maxPosition, maxFocusing, data = self.autofocusSweep()
         position, finalData = self.fineTuning(maxPosition, maxFocusing, data)
         finalFocusing = -1
-        finalPosition = -1
-
+        
         for i in range(len(finalData)):
-            if i == position:
+            if finalData[i][0] == position:
                 finalFocusing = finalData[i][1]
                 finalFilename = finalData[i][2]
-        
-        print finalPosition
         print position
 
         image = Image.open(self.cameraOperator.getCurrentSubfolder() + finalFilename)
@@ -54,12 +51,12 @@ class Autofocus:
     def autofocusSweep(self):
         self.platform.moveDownAll()
 
-        position = self.maxSteps
+        position = 0
         data = []
         for _ in range(self.imagesInSweep):
             self.platform.moveUp(self.maxSteps) #move first then capture
-            self.__captureAndFocusing__(position, data)
             position += self.maxSteps
+            self.__captureAndFocusing__(position, data)
 
         maxFocusing = -1
         maxPosition = -1
@@ -78,9 +75,9 @@ class Autofocus:
         position = maxPosition
 
         while steps >= 1:
+            focusNew = self.__captureAndFocusing__(position, data)
             self.platform.moveUp(steps)
             position += steps
-            focusNew = self.__captureAndFocusing__(position, data)
 
             if focusNew > focusStart:
                 focusStart = focusNew
