@@ -10,13 +10,13 @@ class Scheduler:
         if interval > totalTime:
             print("error, interval cannot be larger than time")
         else:
-            end = time() + totalTime 
+            end = time() + totalTime
             while time() < end:
                 before = time()
-                print(self.autofocus)
+                self.autofocus.runAutofocus()
                 duration = time() - before
                 if interval > duration:
                     sleep(interval - duration)
-                
+
     def stopSerial(self):
         pass
