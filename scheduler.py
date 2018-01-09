@@ -1,3 +1,9 @@
+"""
+A class containing the method that autofocuses the picture over a given period of time with a given interval.
+For remote observation of changes over time.
+"""
+
+
 from time import sleep, time
 
 class Scheduler:
@@ -10,13 +16,13 @@ class Scheduler:
         if interval > totalTime:
             print("error, interval cannot be larger than time")
         else:
-            end = time() + totalTime
+            end = time() + totalTime # calculates the end time for the measurement
             while time() < end:
-                before = time()
+                before = time() # time before exectuing autofocus
                 self.autofocus.runAutofocus()
-                duration = time() - before
-                if interval > duration:
+                duration = time() - before # how long autofocus took
+                if interval > duration: # before exection of the next autofocus in series wait for the remaining time of interval
                     sleep(interval - duration)
 
-    def stopSerial(self):
+    def stopSerial(self): # placeholder
         pass
