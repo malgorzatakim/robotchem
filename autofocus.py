@@ -2,10 +2,10 @@
 Class containing all the autofocusing functionality
 The calculations are based on the mean intensity focusing value comparing the intensity of every pixel with the mean intensity of all pixels
 and hence determines its sharpness
-The algorithm performs a sweep across a range of positions folllowed by fine tuning of the positions around the maximum focsuing value 
+The algorithm performs a sweep across a range of positions folllowed by fine tuning of the positions around the maximum focsuing value
 from the sweep
 """
-from PIL import Image
+from PIL import Image, ImageFile
 import numpy as np
 from cameraoperator import CameraOperator
 from platform import Platform
@@ -13,26 +13,25 @@ import time
 import matplotlib.pyplot as plt
 from plot import PlotFocusing
 from PyQt4.QtCore import SIGNAL
-from PIL import ImageFile
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True # error prevention for display of large images
 
 class Autofocus:
 
-    def __init__(self, CameraOperator, Platform, PlotFocusing, thread):
-        self.cameraOperator = CameraOperator
-        self.platform = Platform
-        self.plotFocusing = PlotFocusing
+    def __init__(self, cameraOperator, platform, thread):
+        self.cameraOperator = cameraOperator
+        self.platform = platform
+        self.plotFocusing = PlotFocusing(cameraOperator)
         self.thread = thread
 
         self.totalPositions = 100 # hardcoded value
         self.maxSteps = 10 # hardcoded  value
-        self.imagesInSweep = self.totalPositions // self.maxSteps - 1 # sweep does not include extreme positions 
+        self.imagesInSweep = self.totalPositions // self.maxSteps - 1 # sweep does not include extreme positions
 
     def runAutofocus(self):
         self.cameraOperator.newSubfolder()
-        maxPosition, maxFocusing, data = self.autofocusSweep()
-        position, finalData = self.fineTuning(maxPosition, maxFocusing, data)
+        maxPosition, maxFocusing, data = self._autofocusSweep()
+        position, finalData = self._fineTuning(maxPosition, maxFocusing, data)
 
         finalFocusing = -1
 
@@ -56,7 +55,7 @@ class Autofocus:
     def stopAutofocus(self):
         pass
 
-    def autofocusSweep(self):
+    def _autofocusSweep(self):
         self.platform.moveDownAll() # to get zero position
 
         position = 0
@@ -64,7 +63,7 @@ class Autofocus:
         for _ in range(self.imagesInSweep): # move first then capture across the whole platform range
             self.platform.moveUp(self.maxSteps)
             position += self.maxSteps
-            self.__captureAndFocusing__(position, data)
+            self._captureAndFocusing(position, data)
 
         maxFocusing = -1
         maxPosition = -1
@@ -77,11 +76,11 @@ class Autofocus:
 
         return maxPosition, maxFocusing, data
 
-# FineTuning operates on the range of 2 * imagesInSweep with the middle position with maxFocusing from sweep.
-# Halves the number of steps, moves from the maxFocsuing position (either way), compares the focusing value 
+# _FineTuning operates on the range of 2 * imagesInSweep with the middle position with maxFocusing from sweep.
+# Halves the number of steps, moves from the maxFocsuing position (either way), compares the focusing value
 # and chooses the new maxFocusing. These are repeated until step is minimal.
 
-    def fineTuning(self, maxPosition, maxFocusing, data):
+    def _fineTuning(self, maxPosition, maxFocusing, data):
         steps = self.maxSteps // 2
         focusStart = maxFocusing
         position = maxPosition
@@ -89,14 +88,14 @@ class Autofocus:
         while steps >= 1:
             self.platform.moveUp(steps)
             position += steps
-            focusNew = self.__captureAndFocusing__(position, data)
+            focusNew = self._captureAndFocusing(position, data)
 
             if focusNew > focusStart:
                 focusStart = focusNew
             else:
                 self.platform.moveDown(2 * steps)
                 position -= 2 * steps
-                focusNew = self.__captureAndFocusing__(position, data)
+                focusNew = self._captureAndFocusing(position, data)
 
                 if focusNew > focusStart:
                     focusStart = focusNew
@@ -107,17 +106,17 @@ class Autofocus:
 
         return position, data
 
-    def __captureAndFocusing__(self, position, data):
+    def _captureAndFocusing(self, position, data):
         image, filename = self.cameraOperator.takePic()
-        self.thread.emit(SIGNAL('displayPic'), image) # send signal to threading to displayPic 
+        self.thread.emit(SIGNAL('displayPic'), image) # send signal to threading to displayPic
         time.sleep(1)
-        #focus = - (position - 625) ** 2 + 500000 # mathematical function simulating the focusing values (parabola)
-        focus = self.__calcFocusing__(image)
+        focus = - (position - 625) ** 2 + 500000 # mathematical function simulating the focusing values (parabola)
+        #focus = self._calcFocusing(image)
         data.append((position, focus, filename))
         return focus
 
 
-    def __calcFocusing__(self, image): # calculates the focusing value of an image accoridng to the mean intensity formula
+    def _calcFocusing(self, image): # calculates the focusing value of an image accoridng to the mean intensity formula
         im = image.convert("L") # opens pic and converts to grayscale
         width, height = im.size # gets image dimensions
         # pixels = list(im.getdata())
@@ -127,5 +126,7 @@ class Autofocus:
             #focusing = 1 / (height * width * mean) * sum([(x - mean) ** 2 for x in pixels])
             focusing = 1 / (height * width * mean) * (np.dot(pixels, pixels)
                 -  2 * mean * np.sum(pixels) + mean * mean * pixels.shape[0]) # optimised (faster) calculation of the focusing value
+        else:
+            focusing = 0
         print focusing
         return focusing

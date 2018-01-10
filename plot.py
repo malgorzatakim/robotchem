@@ -1,14 +1,12 @@
 import matplotlib.pyplot as plt
-from PIL import Image
 from cameraoperator import CameraOperator
 
 
 class PlotFocusing:
-    def __init__(self, CameraOperator):
-        self.cameraOperator = CameraOperator
+    def __init__(self, cameraOperator):
+        self.cameraOperator = cameraOperator
 
     def plotting(self, finalData):
-
         position = []
         focusing = []
         for entry in finalData:
