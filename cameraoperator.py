@@ -24,10 +24,10 @@ class CameraOperator:
         image2 = (image.crop((485, 250, 900, 650))).save(self.currentSubfolder + filename)
         return Image.open(self.currentSubfolder + filename), filename
 
-    def newSubfolder(self): # creates a new subfolder (called with timestamp) for a new dataset (either single pic or autofocus)
+    def newSubfolder(self, masterFolder): # creates a new subfolder (called with timestamp) for a new dataset (either single pic or autofocus)
         name = time.time()
-        self.currentSubfolder = self.imageBasePath + str(name) + "/" # name of the subfolder
-        os.mkdir(self.currentSubfolder)
+        self.currentSubfolder = self.imageBasePath + masterFolder + "/" + str(name) + "/" # name of the subfolder
+        os.makedirs(self.currentSubfolder)
 
     def getCurrentSubfolder(self):
         return self.currentSubfolder

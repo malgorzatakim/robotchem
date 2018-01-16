@@ -11,7 +11,7 @@ class Scheduler:
     def __init__(self, autofocus):
         self.autofocus = autofocus
 
-    def startSerial(self, totalTime, interval):
+    def startSerial(self, totalTime, interval, masterFolder):
         # here: interval and totalTime is in seconds
         if interval > totalTime:
             print("error, interval cannot be larger than time")
@@ -19,7 +19,7 @@ class Scheduler:
             end = time() + totalTime # calculates the end time for the measurement
             while time() < end:
                 before = time() # time before exectuing autofocus
-                self.autofocus.runAutofocus()
+                self.autofocus.runAutofocus(masterFolder)
                 duration = time() - before # how long autofocus took
                 if interval > duration: # before exection of the next autofocus in series wait for the remaining time of interval
                     sleep(interval - duration)

@@ -28,8 +28,8 @@ class Autofocus:
         self.maxSteps = 50 # hardcoded  value
         self.imagesInSweep = self.totalPositions // self.maxSteps - 1 # sweep does not include extreme positions
 
-    def runAutofocus(self):
-        self.cameraOperator.newSubfolder()
+    def runAutofocus(self, masterFolder):
+        self.cameraOperator.newSubfolder(masterFolder)
         maxPosition, maxFocusing, data = self._autofocusSweep()
         position, finalData = self._fineTuning(maxPosition, maxFocusing, data)
 

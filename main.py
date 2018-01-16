@@ -8,6 +8,7 @@ as well as functionality of all the components (buttons, labels)
 
 
 import sys
+import time
 from PyQt4 import QtGui, QtCore
 from PIL.ImageQt import ImageQt
 from gui import Ui_MainWindow
@@ -35,12 +36,13 @@ class BackgroundThread(QThread): # threading for background image display from a
         self.wait()
 
     def run(self):
+        masterFolder = "master_" + str(time.time())
         if self.main.backgroundMode == 1: # turns on autofocus threading
-            self.autofocus.runAutofocus()
+            self.autofocus.runAutofocus(masterFolder)
         elif self.main.backgroundMode == 2: # turns on scheduler threading
             print "Starting scheduled runs for {} sec with min intervals of {} sec".format(*self.main.schedulerArgs)
             #print used as a debugging control
-            self.scheduler.startSerial(*self.main.schedulerArgs) # turns on scheduelr threading, arguments unpacked with *
+            self.scheduler.startSerial(*self.main.schedulerArgs, masterFolder = masterFolder) # turns on scheduelr threading, arguments unpacked with *
         else:
             print "Unknown background mode."
 
