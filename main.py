@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 Contains two classes:
 BackgroundThread - responsible for threading actions from other clasess
