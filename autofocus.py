@@ -110,8 +110,8 @@ class Autofocus:
         image, filename = self.cameraOperator.takePic()
         self.thread.emit(SIGNAL('displayPic'), image) # send signal to threading to displayPic
         time.sleep(1)
-        focus = - (position - 625) ** 2 + 500000 # mathematical function simulating the focusing values (parabola)
-        #focus = self._calcFocusing(image)
+        #focus = - (position- 63) ** 2 + 3000 # mathematical function simulating the focusing values (parabola)
+        focus = self._calcFocusing(image)
         data.append((position, focus, filename))
         return focus
 
