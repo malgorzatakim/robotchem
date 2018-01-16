@@ -28,4 +28,4 @@ class Platform:
     def moveDownAll(self): #moves the platform all way down
         #pass
         self.serial.write("4") # "4" is the signal for arduino to move all the way down
-        sleep(5) # sleep for the maximum time necessary for the platform to move down
+        sleep(25) # sleep for the maximum time necessary for the platform to move down

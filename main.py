@@ -86,12 +86,12 @@ class Main(QtGui.QMainWindow):
     def moveUpClicked(self):
         if self._processRunning():
             return
-        self.platform.moveUp(50) # move the platform up by a specified number of steps (multiplies of 0.1 mm)
+        self.platform.moveUp(5) # move the platform up by a specified number of steps (multiplies of 0.1 mm)
 
     def moveDownClicked(self):
         if self._processRunning():
             return
-        self.platform.moveDown(50) # move the platform down by a specified number of steps (multiplies of 0.1 mm)
+        self.platform.moveDown(5) # move the platform down by a specified number of steps (multiplies of 0.1 mm)
 
     def startClicked(self): # run the scheduler program
         if self._processRunning():

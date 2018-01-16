@@ -24,8 +24,8 @@ class Autofocus:
         self.plotFocusing = PlotFocusing(cameraOperator)
         self.thread = thread
 
-        self.totalPositions = 100 # hardcoded value
-        self.maxSteps = 10 # hardcoded  value
+        self.totalPositions = 500 # hardcoded value
+        self.maxSteps = 50 # hardcoded  value
         self.imagesInSweep = self.totalPositions // self.maxSteps - 1 # sweep does not include extreme positions
 
     def runAutofocus(self):
