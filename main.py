@@ -72,7 +72,8 @@ class Main(QtGui.QMainWindow):
     def takePicClicked(self): # take picture, put it in a folder and display it
         if self._processRunning(): # checks whether a background process is running
             return
-        self.cameraOperator.newSubfolder()
+        masterFolder = "master_" + str(time.time())
+        self.cameraOperator.newSubfolder(masterFolder)
         image, _ = self.cameraOperator.takePic() # takes a picture and puts it in the created subfolder
         self.displayPic(image)
 
