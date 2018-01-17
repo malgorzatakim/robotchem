@@ -17,15 +17,15 @@ class Platform:
         for _ in range(steps):
             #pass
             self.serial.write("1") # "1" is the signal for arduino to move up
-            sleep(0.1) # sleep for how long it takes for the platform to move by steps
+            sleep(0.05) # sleep for how long it takes for the platform to move by steps
     def moveDown(self, steps):
         print "Moving down by: {} steps".format(steps)
         for _ in range(steps):
             #pass
             self.serial.write("2") # "2" is the signal for arduino to move down
-            sleep(0.1)
+            sleep(0.05)
 
     def moveDownAll(self): #moves the platform all way down
         #pass
         self.serial.write("4") # "4" is the signal for arduino to move all the way down
-        sleep(25) # sleep for the maximum time necessary for the platform to move down
+        sleep(7) # sleep for the maximum time necessary for the platform to move down

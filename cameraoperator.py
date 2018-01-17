@@ -21,7 +21,7 @@ class CameraOperator:
         #copy2(self.imageBasePath + src, self.currentSubfolder + filename) # for testing on a non-raspberry pi computer
         image = Image.open(self.currentSubfolder + filename)
         #opening the picture and cropping
-        image2 = (image.crop((485, 250, 900, 650))).save(self.currentSubfolder + filename)
+        image2 = (image.crop((390, 180, 1000, 790))).save(self.currentSubfolder + filename)
         return Image.open(self.currentSubfolder + filename), filename
 
     def newSubfolder(self, masterFolder): # creates a new subfolder (called with timestamp) for a new dataset (either single pic or autofocus)
