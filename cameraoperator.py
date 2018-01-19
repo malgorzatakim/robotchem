@@ -15,13 +15,15 @@ class CameraOperator:
         self.camera = picamera.PiCamera()
 
     def takePic(self):
+        self.camera.resolution = (3000, 2000)
         src = "kolpak.png"
         filename = str(int(time.time() * 100)) + ".png" # *100 because filenames can't have "."
         self.camera.capture(self.currentSubfolder + filename) # takes a picture and puts it in a folder
         #copy2(self.imageBasePath + src, self.currentSubfolder + filename) # for testing on a non-raspberry pi computer
         image = Image.open(self.currentSubfolder + filename)
         #opening the picture and cropping
-        image2 = image.crop((390, 180, 1000, 790))
+        print(image.size)
+        image2 = image.crop((1100, 760, 1970, 1590))
         image2.save(self.currentSubfolder + filename)
         return image2, filename
 

@@ -12,7 +12,7 @@ class PlotFocusing:
         focusing = []
         #xmarks= [i for i in range(0,11)]
         for entry in finalData:
-            position.append(entry[0] / 10.0)
+            position.append(entry[0] / 20.0)
             focusing.append(entry[1])
             #focusing.append(entry[1]/ 100.0)
         #plt.figure()
