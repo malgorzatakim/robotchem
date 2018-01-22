@@ -15,7 +15,7 @@ class PlotFocusing:
             position.append(entry[0] / 20.0)
             focusing.append(entry[1])
             #focusing.append(entry[1]/ 100.0)
-        #plt.figure()
+        plt.figure()
         plt.scatter(position, focusing, linewidth = 2.0)
         #plt.xticks(xmarks)
         #plt.annotate('(Ps, Fs)', xy = (6.0, 29.96), xytext=(5.5, 31))
