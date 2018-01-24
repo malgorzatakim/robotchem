@@ -23,7 +23,7 @@ class CameraOperator:
         image = Image.open(self.currentSubfolder + filename)
         #opening the picture and cropping
         print(image.size)
-        image2 = image.crop((1100, 760, 1970, 1590))
+        image2 = image.crop((980, 760, 1810, 1590))
         image2.save(self.currentSubfolder + filename)
         return image2, filename
 
